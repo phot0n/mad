@@ -1,2 +1,2 @@
-# p-mad
+# mad
 medium article downloader
