@@ -1,21 +1,21 @@
-import requests,sys
+import os,sys
+import requests
 from bs4 import BeautifulSoup as bs
 
-
 def scrape(x):
-  heading = soup.find('h1')
-  subheading = soup.find('h2') #if there's no subheading,gives author's name
+  out_text = []
+  
+  subheading = x.find('h2') #if there's no subheading,gives author's name
   print('\n' + '-->> ' + heading.text + ': ' + subheading.text + '\n')
-  text_items = soup.find_all('p') #gives a list of all the data/text as well as tags in the <p> tags
+  text_items = x.find_all('p') #gives a list of all the data/text as well as tags in the <p> tags
 
   for t in text_items:
     if t.contents[0] == 'Written by':
       t.decompose()
-      print('------end------')
-    else:
-      out_text = ''.join(t.strings) + '\n'
-  
-  return out_text
+    out_text.append(''.join(t.strings))
+
+  return out_text #returns a list of all the written material of the article
+
 
 def converter(y):
   pass
@@ -28,5 +28,20 @@ if __name__ == "__main__":
     sys.exit(0)
 
   soup = bs(page.text, 'html.parser')
+  heading = soup.find('h1')
 
-  scrape(soup)
+  if os.path.exists(os.path.abspath('articles')) is True:
+    with open(os.path.join(os.path.abspath('articles'),heading.text + '.md'),'wb') as file:
+      file.write(scrape(soup))
+    print(scrape(soup))
+
+  else:
+    try:
+      os.makedirs(os.path.abspath('articles'))
+    except OSError:
+      print("Failed to make directory...exiting")
+      sys.exit(0)
+
+    with open(os.path.join(os.path.abspath('articles'),heading.text + '.md'),'wb') as file:
+      file.write(scrape(soup))
+    print(scrape(soup))
