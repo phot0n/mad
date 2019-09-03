@@ -16,9 +16,9 @@ def scrape(x):
 
 def converter(y,head,subhead):
   with open(os.path.join(os.path.abspath('articles'),head.text + '.md'),'wb') as file:
-    file.write('# '+head.text+': '+subhead.text + '\n')
+    file.write(b'## ' + bytes(head.text, 'utf-8') + b' : ' + bytes(subhead.text, 'utf-8') + b'\n\n')
     for i in range (0,len(y)):
-      file.write('  '+y[i]+'\n\n')
+      file.write(b'  '+y[i]+b'\n\n')
   print('Done\n')
 
 if __name__ == "__main__":
