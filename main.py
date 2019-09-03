@@ -18,12 +18,11 @@ def converter(y,head,subhead):
   with open(os.path.join(os.path.abspath('articles'),head.text + '.md'),'wb') as file:
     file.write('# '+head.text+': '+subhead.text + '\n')
     for i in range (0,len(y)):
-      file.write('  '+y[i]+'  ')
-
+      file.write('  '+y[i]+'\n\n')
   print('Done\n')
 
 if __name__ == "__main__":
-  page = requests.get(input("url of medium article(use quotes): "), timeout=None)
+  page = requests.get(input("url of medium article: "), timeout=None)
   print("\nPlease wait.....turututu\n")
   if (page.status_code != 200):
     print("\nInvalid....Exiting")
