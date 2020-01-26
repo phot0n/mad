@@ -11,7 +11,7 @@
 
         python main.py
 
-  - After this input the medium article link and you can find the desired article in `articles` folder in the directory from where you ran the commands [Need to fix this :P]
+  - After this input the medium article link and you can find the desired article in `articles` folder in the directory
 
 
   

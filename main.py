@@ -15,7 +15,7 @@ def scrape(x):
 
 
 def converter(y,head,subhead):
-  with open(os.path.join(os.path.abspath('articles'),head.text + '.md'),'wb') as file:
+  with open(os.path.join(root_dir,'articles',head.text + '.md'),'wb') as file:
     file.write(b'># ' + bytes(head.text, 'utf-8') + b'\n\n' + b'>### ' + bytes(subhead.text, 'utf-8') + b'\n\n')
     for i in range (0,len(y)):
       file.write(b'> '+y[i]+b'\n\n')
@@ -31,11 +31,12 @@ if __name__ == "__main__":
   heading = soup.find('h1')
   subheading = soup.find('h2') #if there's no subheading,gives author's name
 
-  if os.path.exists(os.path.abspath('articles')) is True:
+  root_dir = os.path.abspath(os.path.dirname(__file__))
+  if os.path.exists(os.path.join(root_dir,'articles')):
     converter(scrape(soup),heading,subheading)
   else:
     try:
-      os.makedirs(os.path.abspath('articles'))
+      os.mkdir(os.path.join(root_dir,'articles'))
     except OSError:
       print("Failed to make directory...exiting")
       sys.exit(0)
