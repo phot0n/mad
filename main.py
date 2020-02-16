@@ -1,6 +1,8 @@
-import os,sys
+import os
+import sys
 import requests
 from bs4 import BeautifulSoup as bs
+
 
 def scrape(x):
   out_text = []
@@ -13,13 +15,13 @@ def scrape(x):
 
   return out_text #returns a list of all the written material of the article
 
-
 def converter(y,head,subhead):
   with open(os.path.join(root_dir,'articles',head.text + '.md'),'wb') as file:
     file.write(b'># ' + bytes(head.text, 'utf-8') + b'\n\n' + b'>### ' + bytes(subhead.text, 'utf-8') + b'\n\n')
     for i in range (0,len(y)):
       file.write(b'> '+y[i]+b'\n\n')
   print('\nDone')
+
 
 if __name__ == "__main__":
   page = requests.get(input("url of medium article: "), timeout=None)
